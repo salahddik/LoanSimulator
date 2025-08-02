@@ -1,0 +1,6 @@
+@LoanSimulator.Server_HostAddress = http://localhost:5078
+
+GET {{LoanSimulator.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
