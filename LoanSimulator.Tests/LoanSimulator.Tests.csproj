@@ -22,6 +22,7 @@
     <ProjectReference Include="..\LoanSimulator.API\LoanSimulator.API.csproj" />
     <ProjectReference Include="..\LoanSimulator.Application\LoanSimulator.Application.csproj" />
     <ProjectReference Include="..\LoanSimulator.Infrastructure\LoanSimulator.Infrastructure.csproj" />
+    <ProjectReference Include="..\LoanSimulator.Domain\LoanSimulator.Domain.csproj" />
   </ItemGroup>
 
 </Project>

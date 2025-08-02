@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Tests", "LoanSimulator.Tests\LoanSimulator.Tests.csproj", "{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Domain", "LoanSimulator.Domain\LoanSimulator.Domain.csproj", "{AE7A1765-B114-4160-8F88-8BFB4319E14D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE7A1765-B114-4160-8F88-8BFB4319E14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE7A1765-B114-4160-8F88-8BFB4319E14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE7A1765-B114-4160-8F88-8BFB4319E14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE7A1765-B114-4160-8F88-8BFB4319E14D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

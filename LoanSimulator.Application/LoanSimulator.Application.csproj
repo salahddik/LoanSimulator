@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LoanSimulator.Infrastructure\LoanSimulator.Infrastructure.csproj" />
+    <ProjectReference Include="..\LoanSimulator.Domain\LoanSimulator.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
