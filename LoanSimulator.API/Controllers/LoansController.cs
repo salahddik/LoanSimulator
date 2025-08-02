@@ -1,5 +1,5 @@
-﻿using LoanSimulator.Application.CORS.Commands;
-using LoanSimulator.Application.CORS.Queries;
+﻿using LoanSimulator.Application.Commands;
+using LoanSimulator.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

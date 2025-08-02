@@ -1,9 +1,10 @@
 using FluentValidation;
-using LoanSimulator.Application.CORS.Commands;
+using FluentValidation.AspNetCore;
+using LoanSimulator.Application.Commands;
 using LoanSimulator.Infrastructure.Data;
+using LoanSimulator.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateLoanCommandValidator>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 // Add CORS
 builder.Services.AddCors(options =>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LoanSimulator.Application.CORS.Queries
+namespace LoanSimulator.Application.Queries
 {
     public class LoanSimulationResultDto
     {

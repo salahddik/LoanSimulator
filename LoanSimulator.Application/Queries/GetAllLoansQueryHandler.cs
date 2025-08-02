@@ -1,30 +1,25 @@
-﻿using LoanSimulator.Application.CORS.Queries;
-using LoanSimulator.Infrastructure.Data;
+﻿using LoanSimulator.Infrastructure.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LoanSimulator.Application.CORS.Queries
+namespace LoanSimulator.Application.Queries
 {
     public class GetAllLoansQueryHandler : IRequestHandler<GetAllLoansQuery, List<LoanSimulationResultDto>>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ILoanRepository _loanRepository;
 
-        public GetAllLoansQueryHandler(ApplicationDbContext context)
+        public GetAllLoansQueryHandler(ILoanRepository loanRepository)
         {
-            _context = context;
+            _loanRepository = loanRepository;
         }
 
         public async Task<List<LoanSimulationResultDto>> Handle(GetAllLoansQuery request, CancellationToken cancellationToken)
         {
-            // Fetch all loans from database
-            var loans = await _context.Loans.ToListAsync(cancellationToken);
+            var loans = await _loanRepository.GetAllAsync(cancellationToken);
 
-            // Map entity to DTO (you can also use AutoMapper here if configured)
             var loanDtos = new List<LoanSimulationResultDto>();
-
             foreach (var loan in loans)
             {
                 loanDtos.Add(new LoanSimulationResultDto
@@ -34,7 +29,7 @@ namespace LoanSimulator.Application.CORS.Queries
                     InterestRate = loan.InterestRate,
                     MonthlyPayment = loan.MonthlyPayment,
                     TotalPayment = loan.MonthlyPayment * loan.DurationMonths,
-                    TotalInterest = (loan.MonthlyPayment * loan.DurationMonths) - loan.Amount,
+                    TotalInterest = loan.MonthlyPayment * loan.DurationMonths - loan.Amount,
                     Email = loan.Email,
                     Message = "loan retrieved"
                 });

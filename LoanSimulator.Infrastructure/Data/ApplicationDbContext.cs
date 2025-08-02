@@ -14,7 +14,7 @@ namespace LoanSimulator.Infrastructure.Data
             : base(options)
         {
         }
-        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Loan> Loans { get; set; } = null!;
 
     }
 }

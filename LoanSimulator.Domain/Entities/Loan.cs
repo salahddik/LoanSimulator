@@ -14,5 +14,10 @@ namespace LoanSimulator.Domain.Entities
         public double InterestRate { get; set; }       // Annual interest rate (percentage)
         public decimal MonthlyPayment { get; set; }    // Calculated monthly payment amount
         public string Email { get; set; }               // Customer email associated with the loan
+
+
+ 
+
     }
+
 }

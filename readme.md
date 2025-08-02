@@ -1,31 +1,64 @@
-# HahnCreditSim
+# LoanSimulator
 
-This project demonstrates a clean architecture application built with .NET 9 and TypeScript, following Domain-Driven Design (DDD) and CQRS principles. It is developed by Hahn Softwareentwicklung GmbH.
+A clean architecture application built with .NET 9 and TypeScript (Angular), following Domain-Driven Design (DDD) and CQRS principles.
 
 ## Features
 
-- Layered backend architecture: Domain, Application, Infrastructure, API
-- CQRS with commands and queries
-- EF Core with migrations for data persistence
-- Validation using FluentValidation
-- Basic domain events implemented
-- Swagger/OpenAPI for API documentation
-- Frontend built with Angular
-- Unit tests included
-- Docker Compose setup for API and database
+- Layered backend architecture: Domain, Application, Infrastructure, API  
+- CQRS with commands and queries  
+- EF Core with migrations  
+- Validation with FluentValidation  
+- Swagger/OpenAPI documentation  
+- Angular frontend client  
+- Unit tests  
+- Docker Compose setup for API and database  
 
-## Getting Started
+---
 
-### Prerequisites
+## Prerequisites
 
-- .NET 9 SDK
-- Node.js and npm
-- Docker and Docker Compose
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)  
+- [Node.js & npm](https://nodejs.org/)  
+- [Docker & Docker Compose](https://www.docker.com/)  
 
-### Setup
+---
 
-1. **Backend API**
+## Run Backend (API)
 
 ```bash
-cd HahnCreditSim.API
-dotnet run --launch-profile http
+cd LoanSimulator.API
+dotnet restore
+dotnet ef database update
+dotnet run --launch-profile "LoanSimulator"
+# LoanSimulator
+
+A clean architecture application built with .NET 9 and TypeScript (Angular), following Domain-Driven Design (DDD) and CQRS principles.
+
+## Features
+
+- Layered backend architecture: Domain, Application, Infrastructure, API  
+- CQRS with commands and queries  
+- EF Core with migrations  
+- Validation with FluentValidation  
+- Swagger/OpenAPI documentation  
+- Angular frontend client  
+- Unit tests  
+- Docker Compose setup for API and database  
+
+---
+
+## Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)  
+- [Node.js & npm](https://nodejs.org/)  
+- [Docker & Docker Compose](https://www.docker.com/)  
+
+---
+
+## Run Backend (API)
+
+```bash
+cd LoanSimulator.API
+dotnet restore
+dotnet ef database update
+dotnet run --launch-profile "LoanSimulator"

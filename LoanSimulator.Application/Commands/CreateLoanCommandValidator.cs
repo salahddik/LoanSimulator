@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanSimulator.Application.CORS.Commands
+namespace LoanSimulator.Application.Commands
 {
     public class CreateLoanCommandValidator : AbstractValidator<CreateLoanCommand>
     {

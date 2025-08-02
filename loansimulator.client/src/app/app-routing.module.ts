@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MainHomeComponent} from './pages/main-home/main-home.component';
-import { NotFound404Component } from './pages/not-found404/not-found404.component';
-import { MainAboutComponent } from './pages/main-about/main-about.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainHomeComponent
+    loadChildren: () => import('./pages/main-home/main-home.module').then(m => m.MainHomeModule)
   },
   {
     path: 'about',
-    component: MainAboutComponent
-  },
+    loadChildren: () => import('./pages/main-about/main-about.module').then(m => m.MainAboutModule)
+  }
+ ,
   {
     path: '**',
-    component: NotFound404Component
+    loadChildren: () => import('./pages/not-found404/main-not-found404.module').then(m => m.MainNotFound404Module)
   }
 ];
 

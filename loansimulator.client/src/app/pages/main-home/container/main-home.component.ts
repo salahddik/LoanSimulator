@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LoanCreditSimRequest } from '../../shared/interface/loan-credit-sim-request';
-import { LoanCreditSimResponse } from '../../shared/interface/loan-credit-sim-response';
-import { ApiServiceService } from '../../shared/services/api-service.service';
+import { LoanCreditSimRequest } from '../../../shared/interface/loan-credit-sim-request';
+import { LoanCreditSimResponse } from '../../../shared/interface/loan-credit-sim-response';
+import { ApiServiceService } from '../../../shared/services/api-service.service';
+
 
 @Component({
   selector: 'app-main-home',

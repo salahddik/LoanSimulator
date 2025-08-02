@@ -1,25 +1,25 @@
 ﻿using LoanSimulator.Domain.Entities;
-using LoanSimulator.Infrastructure.Data;
-using LoanSimulator.Application.CORS.Queries; // For LoanSimulationResultDto
+using LoanSimulator.Infrastructure.Repositories;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using LoanSimulator.Application.Queries;
 
-namespace LoanSimulator.Application.CORS.Commands
+namespace LoanSimulator.Application.Commands
 {
     public class CreateLoanCommandHandler : IRequestHandler<CreateLoanCommand, LoanSimulationResultDto>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ILoanRepository _loanRepository;
         private const double FixedInterestRate = 4.1;
 
-        public CreateLoanCommandHandler(ApplicationDbContext context)
+        public CreateLoanCommandHandler(ILoanRepository loanRepository)
         {
-            _context = context;
+            _loanRepository = loanRepository;
         }
 
         public async Task<LoanSimulationResultDto> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
         {
-            // Use fixed interest rate
+
             var monthlyPayment = LoanCalculator.CalculateMonthlyPayment(request.Amount, FixedInterestRate, request.DurationMonths);
             var totalPayment = monthlyPayment * request.DurationMonths;
             var totalInterest = totalPayment - request.Amount;
@@ -33,8 +33,8 @@ namespace LoanSimulator.Application.CORS.Commands
                 MonthlyPayment = monthlyPayment
             };
 
-            _context.Loans.Add(loan);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _loanRepository.AddAsync(loan, cancellationToken);
+            await _loanRepository.SaveChangesAsync(cancellationToken);
 
             return new LoanSimulationResultDto
             {

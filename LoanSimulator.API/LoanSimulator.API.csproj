@@ -22,8 +22,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LoanSimulator.Application\LoanSimulator.Application.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LoanSimulator.Infrastructure\LoanSimulator.Infrastructure.csproj" />
+		<ProjectReference Include="..\LoanSimulator.Application\LoanSimulator.Application.csproj" />
+	</ItemGroup>
 
 </Project>

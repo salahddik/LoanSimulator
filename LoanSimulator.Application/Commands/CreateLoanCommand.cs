@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using LoanSimulator.Application.CORS.Queries;
+using LoanSimulator.Application.Queries;
 
-namespace LoanSimulator.Application.CORS.Commands
+namespace LoanSimulator.Application.Commands
 {
     public record CreateLoanCommand(
         decimal Amount,
