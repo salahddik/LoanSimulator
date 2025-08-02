@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "loansimulator.client", "loansimulator.client\loansimulator.client.esproj", "{7B2FE942-4F9E-3B9F-F219-DC36EFF31869}"
 EndProject
@@ -11,6 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Application", "LoanSimulator.Application\LoanSimulator.Application.csproj", "{84B5407D-9CF4-4831-892C-3C2C3611D44C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Infrastructure", "LoanSimulator.Infrastructure\LoanSimulator.Infrastructure.csproj", "{F45E50B9-C6D3-4761-9493-6142B95EDC6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSimulator.Tests", "LoanSimulator.Tests\LoanSimulator.Tests.csproj", "{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +34,18 @@ Global
 		{36D09239-D62A-402B-8352-1AEE7AAF04E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36D09239-D62A-402B-8352-1AEE7AAF04E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36D09239-D62A-402B-8352-1AEE7AAF04E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84B5407D-9CF4-4831-892C-3C2C3611D44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B5407D-9CF4-4831-892C-3C2C3611D44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B5407D-9CF4-4831-892C-3C2C3611D44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B5407D-9CF4-4831-892C-3C2C3611D44C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45E50B9-C6D3-4761-9493-6142B95EDC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45E50B9-C6D3-4761-9493-6142B95EDC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45E50B9-C6D3-4761-9493-6142B95EDC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45E50B9-C6D3-4761-9493-6142B95EDC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB39A19-86B1-4A0B-9195-B0E0C8BC4F96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
