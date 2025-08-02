@@ -18,4 +18,10 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LoanSimulator.API\LoanSimulator.API.csproj" />
+    <ProjectReference Include="..\LoanSimulator.Application\LoanSimulator.Application.csproj" />
+    <ProjectReference Include="..\LoanSimulator.Infrastructure\LoanSimulator.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
