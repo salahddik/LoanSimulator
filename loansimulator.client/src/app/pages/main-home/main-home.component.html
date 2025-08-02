@@ -1,0 +1,93 @@
+<form (ngSubmit)="simulateLoan()" #loanForm="ngForm" class="max-w-md mx-auto p-6 bg-white rounded shadow-md space-y-6">
+  <div>
+    <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Amount:</label>
+    <input type="number"
+           id="amount"
+           name="amount"
+           [(ngModel)]="loanRequest.amount"
+           required
+           min="1"
+           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
+
+  <div>
+    <label for="durationMonths" class="block text-sm font-medium text-gray-700 mb-1">Duration (months):</label>
+    <input type="number"
+           id="durationMonths"
+           name="durationMonths"
+           [(ngModel)]="loanRequest.durationMonths"
+           required
+           min="1"
+           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
+
+  <div class="max-w-xs mx-auto p-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm">
+    <label class="block text-sm font-semibold text-gray-700 mb-2">Interest Rate (%)</label>
+    <span class="inline-block text-lg font-bold text-gray-900 bg-white px-4 py-2 rounded-md shadow-inner select-none">4.1</span>
+  </div>
+
+
+  <div>
+    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+    <input type="email"
+           id="email"
+           name="email"
+           [(ngModel)]="loanRequest.email"
+           required
+           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
+
+  <button type="submit"
+          [disabled]="loanForm.invalid || isLoading"
+          class="w-full bg-blue-600 text-white py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition">
+    <span *ngIf="!isLoading">Simulate Loan</span>
+    <span *ngIf="isLoading">Processing...</span>
+  </button>
+</form>
+
+<!-- Error Message -->
+<div *ngIf="errorMessage" class="max-w-md mx-auto mt-6 p-4 bg-red-100 border border-red-300 rounded">
+  <p class="text-red-700">{{ errorMessage }}</p>
+</div>
+
+<!-- Results Section -->
+<div *ngIf="loanResponse" class="max-w-md mx-auto mt-6 p-6 bg-white rounded shadow-md space-y-4">
+  <h3 class="text-xl font-semibold text-gray-800 mb-4">Loan Simulation Results</h3>
+
+  <div *ngIf="loanResponse.message" class="p-3 bg-green-100 text-green-800 rounded mb-4">
+    {{ loanResponse.message }}
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <p class="text-sm text-gray-500">Loan Amount</p>
+      <p class="font-medium">{{ loanResponse.amount | madCurrency }}</p>
+
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">Duration</p>
+      <p class="font-medium">{{ loanResponse.durationMonths }} months</p>
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">Interest Rate</p>
+      <p class="font-medium">{{ loanResponse.interestRate }}%</p>
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">Monthly Payment</p>
+      <p class="font-medium">{{ loanResponse.monthlyPayment | madCurrency }}</p>
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">Total Payment</p>
+      <p class="font-medium">{{ loanResponse.totalPayment | madCurrency }} </p>
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">Total Interest</p>
+      <p class="font-medium">{{ loanResponse.totalInterest |madCurrency }}</p>
+    </div>
+  </div>
+
+  <div class="pt-4 mt-4 border-t border-gray-200">
+    <p class="text-sm text-gray-500">Confirmation will be sent to</p>
+    <p class="font-medium">{{ loanResponse.email }}</p>
+  </div>
+</div>

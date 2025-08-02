@@ -11,9 +11,8 @@ namespace LoanSimulator.Application.CORS.Commands
     {
         public CreateLoanCommandValidator()
         {
-            RuleFor(x => x.Amount).GreaterThan(0).WithMessage("Amount must be greater than zero.");
+            RuleFor(x => x.Amount).GreaterThanOrEqualTo(1000).WithMessage("Amount must be greater than or equal to 1000 MAD.");
             RuleFor(x => x.DurationMonths).GreaterThan(0).WithMessage("Duration must be greater than zero.");
-            RuleFor(x => x.InterestRate).InclusiveBetween(0.1, 100).WithMessage("Interest rate must be between 0.1 and 100.");
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("A valid email is required.");
         }
     }

@@ -1,0 +1,5 @@
+.active-link {
+  color: #2563eb; /* Tailwind's blue-700 */
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 0.25rem; /* Add a bit of spacing so underline doesn't touch text */
+}

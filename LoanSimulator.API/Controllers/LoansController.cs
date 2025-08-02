@@ -1,4 +1,5 @@
 ﻿using LoanSimulator.Application.CORS.Commands;
+using LoanSimulator.Application.CORS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,25 +16,24 @@ namespace LoanSimulator.API.Controllers
             _mediator = mediator;
         }
 
-        // POST: api/Loans
+        // POST api/Loans
         [HttpPost]
         public async Task<IActionResult> CreateLoan([FromBody] CreateLoanCommand command)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            int newLoanId = await _mediator.Send(command);
+            LoanSimulationResultDto result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetLoanById), new { id = newLoanId }, new { Id = newLoanId });
+            return Ok(result); // Return simulation result only, no ID
         }
 
-        // Optional: simple GET by id endpoint
-        [HttpGet("{id}")]
-        public IActionResult GetLoanById(int id)
+        // GET api/Loans
+        [HttpGet]
+        public async Task<IActionResult> GetAllLoans()
         {
-            // You can implement a query handler to get the loan by id.
-            // For now, just return 404 as placeholder.
-            return NotFound();
+            var loans = await _mediator.Send(new GetAllLoansQuery());
+            return Ok(loans);
         }
     }
 }

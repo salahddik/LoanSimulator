@@ -1,45 +1,52 @@
 ﻿using LoanSimulator.Domain.Entities;
 using LoanSimulator.Infrastructure.Data;
+using LoanSimulator.Application.CORS.Queries; // For LoanSimulationResultDto
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LoanSimulator.Application.CORS.Commands
 {
-    public class CreateLoanCommandHandler : IRequestHandler<CreateLoanCommand, int>
+    public class CreateLoanCommandHandler : IRequestHandler<CreateLoanCommand, LoanSimulationResultDto>
     {
         private readonly ApplicationDbContext _context;
+        private const double FixedInterestRate = 4.1;
 
         public CreateLoanCommandHandler(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<int> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
+        public async Task<LoanSimulationResultDto> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
         {
+            // Use fixed interest rate
+            var monthlyPayment = LoanCalculator.CalculateMonthlyPayment(request.Amount, FixedInterestRate, request.DurationMonths);
+            var totalPayment = monthlyPayment * request.DurationMonths;
+            var totalInterest = totalPayment - request.Amount;
+
             var loan = new Loan
             {
                 Amount = request.Amount,
                 DurationMonths = request.DurationMonths,
-                InterestRate = request.InterestRate,
+                InterestRate = FixedInterestRate,
                 Email = request.Email,
-                MonthlyPayment = CalculateMonthlyPayment(request.Amount, request.InterestRate, request.DurationMonths)
+                MonthlyPayment = monthlyPayment
             };
 
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return loan.Id;
-        }
-
-        private decimal CalculateMonthlyPayment(decimal amount, double interestRate, int months)
-        {
-            double monthlyInterestRate = interestRate / 100 / 12;
-            double payment = (double)amount * monthlyInterestRate / (1 - Math.Pow(1 + monthlyInterestRate, -months));
-            return (decimal)payment;
+            return new LoanSimulationResultDto
+            {
+                Amount = loan.Amount,
+                DurationMonths = loan.DurationMonths,
+                InterestRate = loan.InterestRate,
+                MonthlyPayment = loan.MonthlyPayment,
+                TotalPayment = totalPayment,
+                TotalInterest = totalInterest,
+                Email = loan.Email,
+                Message = "loan successful"
+            };
         }
     }
 }

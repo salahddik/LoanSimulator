@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-main-about',
+  standalone: false,
+  templateUrl: './main-about.component.html',
+  styleUrl: './main-about.component.css'
+})
+export class MainAboutComponent {
+
+}
