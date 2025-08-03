@@ -1,0 +1,64 @@
+<div class="p-6 max-w-7xl mx-auto">
+  <h2 class="text-2xl font-semibold mb-4">Loan List</h2>
+
+  <div *ngIf="errorMessage" class="text-red-600 mb-4">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="loans.length > 0" class="min-w-full bg-white border border-gray-300 rounded-md shadow-md">
+    <thead>
+      <tr class="bg-gray-100 text-gray-700">
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Amount</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Duration Months</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Interest Rate</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Monthly Payment</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Total Payment</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Total Interest</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Email</th>
+        <th class="py-2 px-4 border-b border-gray-300 text-left">Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loans" class="hover:bg-gray-50">
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.amount | madCurrency }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.durationMonths }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.interestRate / 100 | percent:'1.2-2' }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.monthlyPayment | madCurrency }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.totalPayment | madCurrency }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.totalInterest | madCurrency }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.email }}</td>
+        <td class="py-2 px-4 border-b border-gray-200">{{ loan.message }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div *ngIf="loans.length === 0" class="text-gray-500 mt-4">No loans found.</div>
+
+  <!-- Pagination controls -->
+  <div class="flex items-center justify-start gap-4 mt-6">
+    <button (click)="onPageChange(pageNumber - 1)"
+            [disabled]="pageNumber === 1"
+            class="px-3 py-1 rounded bg-blue-600 text-white disabled:bg-gray-400">
+      Previous
+    </button>
+
+    <span class="font-medium">Page {{ pageNumber }}</span>
+
+    <button (click)="onPageChange(pageNumber + 1)"
+            class="px-3 py-1 rounded bg-blue-600 text-white">
+      Next
+    </button>
+
+    <label class="ml-6 flex items-center gap-2">
+      <span>Page size:</span>
+      <select (change)="onPageSizeChange($any($event.target).value)"
+              [value]="pageSize"
+              class="border border-gray-300 rounded px-2 py-1">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+      </select>
+    </label>
+  </div>
+</div>

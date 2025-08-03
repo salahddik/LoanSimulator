@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { MainHomeRoutingModule } from './main-home-routing.module';
 import { MainHomeComponent } from './container/main-home.component';
-import { MadCurrencyPipe } from '../../shared/pipes/mad-currency.pipe';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
-  declarations: [MainHomeComponent, MadCurrencyPipe],
+  declarations: [MainHomeComponent,],
   imports: [
     CommonModule,
-    FormsModule, 
+    FormsModule, SharedModule,
     MainHomeRoutingModule, HttpClientModule
   ]
 })

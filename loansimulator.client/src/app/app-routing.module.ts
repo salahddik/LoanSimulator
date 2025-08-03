@@ -10,6 +10,11 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./pages/main-about/main-about.module').then(m => m.MainAboutModule)
   }
+  ,
+    {
+      path: 'alldata',
+      loadChildren: () => import('./pages/main-alldata/mainalldata.module').then(m => m.MainalldataModule)
+  }
  ,
   {
     path: '**',

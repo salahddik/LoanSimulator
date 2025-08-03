@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://your.production.host/', 
+  apiBaseUrl: 'https://localhost:7058/',
   apiEndpoints: {
-    loans: 'api/Loans'
+    loans: 'api/Loans',
+    GETALLDATA: 'api/Loans/LoanGetAllData',
   }
 };

@@ -16,7 +16,6 @@ namespace LoanSimulator.API.Controllers
             _mediator = mediator;
         }
 
-        // POST api/Loans
         [HttpPost]
         public async Task<IActionResult> CreateLoan([FromBody] CreateLoanCommand command)
         {
@@ -24,15 +23,13 @@ namespace LoanSimulator.API.Controllers
                 return BadRequest(ModelState);
 
             LoanSimulationResultDto result = await _mediator.Send(command);
-
-            return Ok(result); // Return simulation result only, no ID
+            return Ok(result);
         }
 
-        // GET api/Loans
-        [HttpGet]
-        public async Task<IActionResult> GetAllLoans()
+        [HttpGet("LoanGetAllData")]
+        public async Task<IActionResult> GetAllLoans([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var loans = await _mediator.Send(new GetAllLoansQuery());
+            var loans = await _mediator.Send(new GetAllLoansQuery(pageNumber, pageSize));
             return Ok(loans);
         }
     }

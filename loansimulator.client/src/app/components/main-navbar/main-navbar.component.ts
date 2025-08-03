@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './main-navbar.component.css'
 })
 export class MainNavbarComponent {
+  isMenuOpen = false;
 
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }

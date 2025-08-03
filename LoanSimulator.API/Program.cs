@@ -8,48 +8,37 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
-// Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
-// Register MediatR handlers from Application assembly
 builder.Services.AddMediatR(typeof(CreateLoanCommand).Assembly);
 
-// Register FluentValidation validators from Application assembly
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateLoanCommandValidator>();
 
-
-
-// Register DbContext before building the app
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy =>
         {
             policy
-                .AllowAnyOrigin()
+                .WithOrigins("https://localhost:64882")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
 });
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
