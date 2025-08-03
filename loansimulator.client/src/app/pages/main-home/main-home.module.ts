@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MainHomeRoutingModule } from './main-home-routing.module';
 import { MainHomeComponent } from './container/main-home.component';
 import { FormsModule } from '@angular/forms'; 
-import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../../shared/shared.module';
+import { provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,7 +13,9 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     FormsModule, SharedModule,
-    MainHomeRoutingModule, HttpClientModule
+    MainHomeRoutingModule,
   ]
+  , providers: [provideHttpClient()],
+
 })
 export class MainHomeModule { }

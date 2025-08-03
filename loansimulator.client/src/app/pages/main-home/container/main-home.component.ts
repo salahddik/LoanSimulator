@@ -3,7 +3,6 @@ import { LoanCreditSimRequest } from '../../../shared/interface/loan-credit-sim-
 import { LoanCreditSimResponse } from '../../../shared/interface/loan-credit-sim-response';
 import { ApiServiceService } from '../../../shared/services/api-service.service';
 
-
 @Component({
   selector: 'app-main-home',
   standalone: false,
@@ -58,8 +57,6 @@ export class MainHomeComponent {
         this.loanResponse = undefined;
         this.isLoading = false;
       }
-
     });
   }
-
 }
