@@ -7,6 +7,6 @@
         public int DurationMonths { get; set; }
         public double InterestRate { get; set; }
         public decimal MonthlyPayment { get; set; }
-        public string Email { get; set; }
+        public required string Email { get; set; }
     }
 }
