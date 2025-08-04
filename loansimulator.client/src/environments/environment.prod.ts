@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://localhost:7058/',
+  apiBaseUrl: 'http://localhost:8080/',
   apiEndpoints: {
     loans: 'api/Loans',
     GETALLDATA: 'api/Loans/LoanGetAllData',

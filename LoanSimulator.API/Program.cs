@@ -29,17 +29,25 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy
-                .WithOrigins("https://localhost:64882")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+    policy
+        .AllowAnyOrigin()   // <-- allow requests from any origin
+        .AllowAnyHeader()
+        .AllowAnyMethod();
         });
 });
 
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+
+
+using (var scope = app.Services.CreateScope())
+{
+var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+db.Database.Migrate();
+}
+
+//if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

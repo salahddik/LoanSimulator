@@ -10,7 +10,7 @@ namespace LoanSimulator.Application.Commands
     public class CreateLoanCommandHandler : IRequestHandler<CreateLoanCommand, LoanSimulationResultDto>
     {
         private readonly ILoanRepository _loanRepository;
-        private const double FixedInterestRate = 4.1;
+        private const double FixedInterestRate = 4.1; // must be to domain
 
         public CreateLoanCommandHandler(ILoanRepository loanRepository)
         {
@@ -19,7 +19,7 @@ namespace LoanSimulator.Application.Commands
 
         public async Task<LoanSimulationResultDto> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
         {
-
+            // must be to domain
             var monthlyPayment = LoanCalculator.CalculateMonthlyPayment(request.Amount, FixedInterestRate, request.DurationMonths);
             var totalPayment = monthlyPayment * request.DurationMonths;
             var totalInterest = totalPayment - request.Amount;
