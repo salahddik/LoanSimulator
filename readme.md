@@ -31,7 +31,7 @@ docker-compose up -d --build
 
 # 2. Access services:
 # - Frontend: http://localhost:4040
-# - API Docs: http://localhost:8080/swagger
+# - API Docs: http://localhost:8080
 # - Database: localhost,1433 (SA_PASSWORD=YourStrong!Passw0rd)
 
 # 3. Stop services
@@ -68,7 +68,7 @@ docker-compose up -d --build
 
 # 2. Access services:
 # - Frontend: http://localhost:4040
-# - API Docs: http://localhost:8080/swagger
+# - API Docs: http://localhost:8080
 # - Database: localhost,1433 (SA_PASSWORD=YourStrong!Passw0rd)
 
 # 3. Stop services
