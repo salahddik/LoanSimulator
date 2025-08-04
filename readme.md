@@ -1,64 +1,75 @@
-# LoanSimulator
+﻿# LoanSimulator
 
-A clean architecture application built with .NET 9 and TypeScript (Angular), following Domain-Driven Design (DDD) and CQRS principles.
-
-## Features
-
-- Layered backend architecture: Domain, Application, Infrastructure, API  
-- CQRS with commands and queries  
-- EF Core with migrations  
-- Validation with FluentValidation  
-- Swagger/OpenAPI documentation  
-- Angular frontend client  
-- Unit tests  
-- Docker Compose setup for API and database  
-
----
-
-## Prerequisites
-
-- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)  
-- [Node.js & npm](https://nodejs.org/)  
-- [Docker & Docker Compose](https://www.docker.com/)  
-
----
-
-## Run Backend (API)
-
-```bash
-cd LoanSimulator.API
-dotnet restore
-dotnet ef database update
-dotnet run --launch-profile "LoanSimulator"
-# LoanSimulator
-
-A clean architecture application built with .NET 9 and TypeScript (Angular), following Domain-Driven Design (DDD) and CQRS principles.
+A clean architecture application built with .NET 9 and Angular, following DDD and CQRS principles.
 
 ## Features
 
-- Layered backend architecture: Domain, Application, Infrastructure, API  
-- CQRS with commands and queries  
-- EF Core with migrations  
-- Validation with FluentValidation  
-- Swagger/OpenAPI documentation  
-- Angular frontend client  
-- Unit tests  
-- Docker Compose setup for API and database  
-
----
+- 🏗️ Layered architecture (Domain, Application, Infrastructure, API)
+- ⚡ CQRS with MediatR
+- 🗄️ EF Core with automated migrations
+- ✅ FluentValidation integration
+- 📚 Swagger/OpenAPI documentation
+- 🖥️ Angular frontend
+- 🧪 Unit & integration tests
+- 🐳 Docker Compose ready (API + SQL Server + Frontend)
 
 ## Prerequisites
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)  
-- [Node.js & npm](https://nodejs.org/)  
-- [Docker & Docker Compose](https://www.docker.com/)  
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js 18+](https://nodejs.org/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- (Optional) [Azure Data Studio](https://aka.ms/azuredatastudio) for database management
 
 ---
 
-## Run Backend (API)
+## 🚀 Getting Started
 
+### Option 1: Full Docker Setup (Recommended)
 ```bash
-cd LoanSimulator.API
-dotnet restore
-dotnet ef database update
-dotnet run --launch-profile "LoanSimulator"
+# 1. Build and start all services
+docker-compose up -d --build
+
+# 2. Access services:
+# - Frontend: http://localhost:4040
+# - API Docs: http://localhost:8080/swagger
+# - Database: localhost,1433 (SA_PASSWORD=YourStrong!Passw0rd)
+
+# 3. Stop services
+docker-compose down# LoanSimulator
+
+A clean architecture application built with .NET 9 and Angular, following DDD and CQRS principles.
+
+## Features
+
+- 🏗️ Layered architecture (Domain, Application, Infrastructure, API)
+- ⚡ CQRS with MediatR
+- 🗄️ EF Core with automated migrations
+- ✅ FluentValidation integration
+- 📚 Swagger/OpenAPI documentation
+- 🖥️ Angular frontend
+- 🧪 Unit & integration tests
+- 🐳 Docker Compose ready (API + SQL Server + Frontend)
+
+## Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js 18+](https://nodejs.org/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- (Optional) [Azure Data Studio](https://aka.ms/azuredatastudio) for database management
+
+---
+
+## 🚀 Getting Started
+
+### Option 1: Full Docker Setup (Recommended)
+```bash
+# 1. Build and start all services
+docker-compose up -d --build
+
+# 2. Access services:
+# - Frontend: http://localhost:4040
+# - API Docs: http://localhost:8080/swagger
+# - Database: localhost,1433 (SA_PASSWORD=YourStrong!Passw0rd)
+
+# 3. Stop services
+docker-compose down
