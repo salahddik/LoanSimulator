@@ -1,9 +1,22 @@
-﻿using System;
+﻿using LoanSimulator.Domain.Entities;
+using System;
 
 namespace LoanSimulator.Application.Queries
 {
     public class LoanSimulationResultDto
     {
+
+        public LoanSimulationResultDto(Loan loan)
+        {
+            Amount = loan.Amount;
+            DurationMonths = loan.DurationMonths;
+            InterestRate = loan.InterestRate;
+            MonthlyPayment = loan.MonthlyPayment;
+            TotalPayment = loan.TotalPayment;
+            TotalInterest = loan.TotalInterest;
+            Email = loan.Email;
+        }
+
         public decimal Amount { get; set; }
         public int DurationMonths { get; set; }
         public double InterestRate { get; set; }

@@ -29,10 +29,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-    policy
-        .AllowAnyOrigin()   // <-- allow requests from any origin
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+            policy
+                .WithOrigins("http://localhost:4040") // Your frontend URL
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
 });
 
@@ -47,7 +47,7 @@ var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 db.Database.Migrate();
 }
 
-//if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

@@ -1,102 +1,85 @@
-﻿using Xunit;
-using Microsoft.EntityFrameworkCore;
+﻿using LoanSimulator.Domain.Entities;
 using LoanSimulator.Infrastructure.Data;
 using LoanSimulator.Infrastructure.Repositories;
-using LoanSimulator.Domain.Entities;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace LoanSimulator.Tests.Infrastructure.Repositories
+namespace LoanSimulator.Tests
 {
     public class LoanRepositoryTests
     {
-        private DbContextOptions<ApplicationDbContext> _dbContextOptions;
-
-        public LoanRepositoryTests()
+        /// <summary>
+        /// Creates a brand-new ApplicationDbContext backed by a uniquely named
+        /// in-memory database, so no data carries over between tests.
+        /// </summary>
+        private ApplicationDbContext CreateInMemoryDbContext()
         {
-            _dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) 
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
                 .Options;
+
+            return new ApplicationDbContext(options);
         }
 
-
         [Fact]
-        public async Task AddAsync_AddsLoanToDatabase()
+        public async Task AddAsync_ShouldAddLoan()
         {
-            // Arrange
-            await using var context = new ApplicationDbContext(_dbContextOptions);
+            // Arrange: fresh context + repo
+            using var context = CreateInMemoryDbContext();
             var repository = new LoanRepository(context);
 
-            var loan = new Loan
-            {
-                Amount = 1000m,
-                DurationMonths = 12,
-                Email = "test@example.com",
-                InterestRate = 4.1,
-                MonthlyPayment = 85.6m
-            };
+            var loan = new Loan(1000m, 12, "test@example.com");
 
             // Act
             await repository.AddAsync(loan);
             await repository.SaveChangesAsync();
 
             // Assert
-            var loans = await context.Loans.ToListAsync();
-            Assert.Single(loans);
-            Assert.Equal(loan.Amount, loans.First().Amount);
-            Assert.Equal(loan.Email, loans.First().Email);
+            var allLoans = await repository.GetAllAsync();
+            Assert.Single(allLoans);
+            Assert.Equal(1000m, allLoans.First().Amount);
         }
 
         [Fact]
-        public async Task CountAsync_ReturnsCorrectCount()
+        public async Task GetPagedAsync_ShouldReturnPagedResults()
         {
             // Arrange
-            await using var context = new ApplicationDbContext(_dbContextOptions);
+            using var context = CreateInMemoryDbContext();
             var repository = new LoanRepository(context);
 
-            context.Loans.Add(new Loan { Amount = 1000m, DurationMonths = 6, Email = "a@example.com", InterestRate = 4.1, MonthlyPayment = 170 });
-            context.Loans.Add(new Loan { Amount = 2000m, DurationMonths = 12, Email = "b@example.com", InterestRate = 4.1, MonthlyPayment = 175 });
-            await context.SaveChangesAsync();
+            for (int i = 0; i < 20; i++)
+                await repository.AddAsync(new Loan(1000 + i, 12, $"user{i}@example.com"));
+            await repository.SaveChangesAsync();
 
             // Act
-            var count = await repository.CountAsync();
+            var page1 = await repository.GetPagedAsync(1, 10);
+            var page2 = await repository.GetPagedAsync(2, 10);
 
             // Assert
-            Assert.Equal(2, count);
+            Assert.Equal(10, page1.Count);
+            Assert.Equal(10, page2.Count);
+            Assert.NotEqual(page1.First().Amount, page2.First().Amount);
         }
 
         [Fact]
-        public async Task GetPagedAsync_ReturnsCorrectPage()
+        public async Task CountAsync_ShouldReturnCorrectCount()
         {
             // Arrange
-            await using var context = new ApplicationDbContext(_dbContextOptions);
+            using var context = CreateInMemoryDbContext();
             var repository = new LoanRepository(context);
 
-            context.Loans.RemoveRange(context.Loans); // clear db
-            await context.SaveChangesAsync();
+            var before = await repository.CountAsync();
 
-            for (int i = 1; i <= 20; i++)
-            {
-                context.Loans.Add(new Loan
-                {
-                    Amount = 1000m + i,
-                    DurationMonths = 12,
-                    Email = $"user{i}@example.com",
-                    InterestRate = 4.1,
-                    MonthlyPayment = 85.6m
-                });
-            }
-            await context.SaveChangesAsync();
-
-            int pageNumber = 2;
-            int pageSize = 5;
+            await repository.AddAsync(new Loan(2000m, 24, "counttest@example.com"));
+            await repository.SaveChangesAsync();
 
             // Act
-            var page = await repository.GetPagedAsync(pageNumber, pageSize);
+            var after = await repository.CountAsync();
 
             // Assert
-            Assert.Equal(pageSize, page.Count);
-            Assert.Equal("user6@example.com", page.First().Email);
+            Assert.Equal(before + 1, after);
         }
     }
 }

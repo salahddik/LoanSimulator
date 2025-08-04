@@ -30,9 +30,9 @@ namespace LoanSimulator.Tests
                 .Verifiable();
 
             _loanRepositoryMock
-              .Setup(repo => repo.SaveChangesAsync(It.IsAny<CancellationToken>()))
-              .ReturnsAsync(1)
-              .Verifiable();
+                .Setup(repo => repo.SaveChangesAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(1)
+                .Verifiable();
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -45,9 +45,10 @@ namespace LoanSimulator.Tests
 
             _loanRepositoryMock.Verify(repo => repo.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 
-            var expectedMonthlyPayment = LoanCalculator.CalculateMonthlyPayment(command.Amount, 4.1, command.DurationMonths);
-            var expectedTotalPayment = expectedMonthlyPayment * command.DurationMonths;
-            var expectedTotalInterest = expectedTotalPayment - command.Amount;
+            // Calculate expected monthly payment same way as Loan class does
+            decimal expectedMonthlyPayment = CalculateMonthlyPayment(command.Amount, command.DurationMonths);
+            decimal expectedTotalPayment = expectedMonthlyPayment * command.DurationMonths;
+            decimal expectedTotalInterest = expectedTotalPayment - command.Amount;
 
             Assert.Equal(command.Amount, result.Amount);
             Assert.Equal(command.DurationMonths, result.DurationMonths);
@@ -57,6 +58,15 @@ namespace LoanSimulator.Tests
             Assert.Equal(expectedTotalInterest, result.TotalInterest, 2);
             Assert.Equal(command.Email, result.Email);
             Assert.Equal("loan successful", result.Message);
+        }
+
+        // Helper method mimicking Loan.CalculateMonthlyPayment
+        private decimal CalculateMonthlyPayment(decimal amount, int durationMonths)
+        {
+            const double fixedInterestRate = 4.1;
+            double monthlyInterestRate = fixedInterestRate / 100 / 12;
+            double payment = (double)amount * monthlyInterestRate / (1 - System.Math.Pow(1 + monthlyInterestRate, -durationMonths));
+            return (decimal)payment;
         }
     }
 }
